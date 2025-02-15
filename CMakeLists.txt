@@ -5,10 +5,6 @@ project(signal-cpp)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Include directories for header files.
-include_directories(${CMAKE_SOURCE_DIR}/includes)
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 # Find libsodium using pkg-config.
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBSODIUM REQUIRED libsodium)
@@ -20,6 +16,7 @@ link_directories(${LIBSODIUM_LIBRARY_DIRS})
 # Add the executable target.
 # The main source is "example.cpp" in the project root.
 add_executable(signal signal.cpp )
+add_executable(server server.cpp server/server.cc)
 
 # (Optional) If you have additional source files in the src directory, you can add them:
 # file(GLOB SRC_FILES ${CMAKE_SOURCE_DIR}/src/*.cc)
