@@ -147,12 +147,4 @@ For a detailed look at the code and to use these features in your own projects, 
 
 Happy coding and secure messaging!
 
-```
-
 ---
-
-```
-
-```
-
-```
