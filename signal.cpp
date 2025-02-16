@@ -1,4 +1,5 @@
 #include "includes/signal.h" // Contains the Signal class with key generation and double ratchet.
+#include "includes/printHex.h"
 #include "includes/x3dh.h" // Contains conversion helpers and X3DH functions.
 #include <cstring>
 #include <iostream>
@@ -24,7 +25,6 @@ int main() {
     std::cerr << "Bob key generation failed." << std::endl;
     return 1;
   }
-
   // --- X3DH Key Agreement ---
   // Alice computes her session key.
   unsigned char alice_session_key[X3DH_SESSION_KEY_BYTES];
@@ -47,7 +47,15 @@ int main() {
     std::cerr << "Bob session key computation failed." << std::endl;
     return 1;
   }
+  std::cout << "Alice's Keys" << std::endl;
+  alice.printAllKeys();
+  printHex(alice_session_key, "alice session Key:");
+  std::cout << " " << std::endl;
 
+  std::cout << "Bob's Keys" << std::endl;
+  bob.printAllKeys();
+  printHex(bob_session_key, "bob session Key:");
+  std::cout << std::endl;
   // Verify that the session keys match.
   if (sodium_memcmp(alice_session_key, bob_session_key,
                     X3DH_SESSION_KEY_BYTES) != 0) {
@@ -116,7 +124,7 @@ int main() {
     return 1;
   }
   std::cout << "\nAlice sends: " << aliceMsg << std::endl;
-
+  printHex(aliceCiphertext, aliceCiphertextLen);
   unsigned char *decryptedFromAlice = nullptr;
   size_t decryptedFromAliceLen = 0;
   if (!bob.dratchet.decryptMessage(aliceCiphertext, aliceCiphertextLen,
@@ -147,6 +155,7 @@ int main() {
   }
   std::cout << "\nBob sends: " << bobMsg << std::endl;
 
+  printHex(bobCiphertext, bobCiphertextLen);
   // Alice decrypts Bob's reply.
   unsigned char *decryptedFromBob = nullptr;
   size_t decryptedFromBobLen = 0;
