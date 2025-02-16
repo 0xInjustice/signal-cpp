@@ -1,20 +1,40 @@
-#### **signal-cpp**
+Below is an updated version of your README that incorporates additional context about the project, clear installation instructions for multiple platforms, build steps, and usage details. You can copy and paste this updated README into your repository.
 
 ---
 
-an attempt to create library for signal protocol using libsodium
+````markdown
+# signal-cpp
+
+signal-cpp is an experimental C++ library that implements core components of the Signal Protocol using libsodium. It provides key generation routines, the X3DH key agreement protocol, and the Double Ratchet algorithm to enable secure, end-to-end encrypted messaging with forward secrecy and post-compromise security.
 
 ---
 
-## On Linux (using apt)
+## Features
 
-For Debian-based distributions (such as Ubuntu), the easiest way to install libsodium is by installing the development package. This package includes the header files and the library you need to compile and link your C++ code.
+- **X3DH Key Agreement:** Establish a shared session key via multiple Diffie–Hellman exchanges.
+- **Double Ratchet Algorithm:** Continuously update message keys to ensure forward secrecy.
+- **Libsodium Integration:** Leverages libsodium for robust, high-performance cryptographic primitives.
+
+---
+
+## Prerequisites
+
+### Libsodium
+
+The project depends on [libsodium](https://libsodium.gitbook.io/doc/). Make sure you have it installed on your system.
+
+---
+
+## Installation
+
+### On Linux (Debian/Ubuntu)
 
 1. **Update your package index:**
 
    ```bash
    sudo apt update
    ```
+````
 
 2. **Install the libsodium development package:**
 
@@ -22,36 +42,30 @@ For Debian-based distributions (such as Ubuntu), the easiest way to install libs
    sudo apt install libsodium-dev
    ```
 
-3. **Using in your C++ project:**
-   - Include the header in your source files:
+3. **Compile Your Project:**
+   - In your source files, include the header:
      ```cpp
      #include <sodium.h>
      ```
-   - When compiling, link against the library by adding the `-lsodium` flag. For example:
+   - When compiling, link against libsodium by adding the `-lsodium` flag. For example:
      ```bash
      g++ your_source.cpp -o your_program -lsodium
      ```
 
----
+### On Windows
 
-## On Windows
-
-### Option 1: Pre-built Binaries
+#### Option 1: Pre-built Binaries
 
 1. **Download the pre-built package:**
 
-   - Go to the [libsodium releases page](https://download.libsodium.org/libsodium/releases/).
-   - Download the latest pre-built binary for Windows (for example, a file like `libsodium-1.0.18-msvc.zip`).
+   - Visit the [libsodium releases page](https://download.libsodium.org/libsodium/releases/) and download the latest pre-built binary for Windows (e.g., `libsodium-1.0.18-msvc.zip`).
 
-2. **Extract and set up:**
+2. **Extract and Set Up:**
    - Unzip the package.
-   - Choose the appropriate build (e.g., for Visual Studio, locate the corresponding `.lib` and header files).
-   - In your Visual Studio project, add the extracted include folder to your project’s include directories and the library folder to your linker settings.
-   - Make sure that the corresponding DLL (for dynamic linking) is either in your project directory or in a folder on your system’s PATH (you can copy it to `C:\Windows\System32` if needed).
+   - For Visual Studio, add the extracted include folder to your project's include directories and the corresponding library folder to your linker settings.
+   - Ensure that the appropriate DLL is available in your project directory or added to your system's PATH.
 
-### Option 2: Using vcpkg
-
-vcpkg is a popular package manager for Windows (and even cross-platform) that automates the download, build, and integration of libraries.
+#### Option 2: Using vcpkg
 
 1. **Clone and bootstrap vcpkg:**
 
@@ -72,20 +86,77 @@ vcpkg is a popular package manager for Windows (and even cross-platform) that au
      ```bash
      .\vcpkg integrate install
      ```
-   - This automatically sets up your projects so that they can find the installed libsodium headers and libraries.
+   - This sets up your projects to automatically find the libsodium headers and libraries.
 
-For further details on building with Visual Studio or MinGW, you can refer to the [official docs for Windows compilation](citeturn0search0).
+For more details on Windows build configuration (e.g., using Visual Studio or MinGW), please refer to the [official docs for Windows compilation](citeturn0search0).
 
 ---
 
-##### clone this repository
+## Building signal-cpp
 
-```bash
-git clone https://github.com/injustice-x/signal-cpp.git
-cd signal-cpp
-mkdir build
-cd build
-cmake ..
-make
-./signal
+To compile and run the provided code, follow these steps:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/injustice-x/signal-cpp.git
+   cd signal-cpp
+   ```
+
+2. **Create a build directory and navigate into it:**
+
+   ```bash
+   mkdir build
+   cd build
+   ```
+
+3. **Generate the build system with CMake:**
+
+   ```bash
+   cmake ..
+   ```
+
+4. **Build the project:**
+
+   ```bash
+   make
+   ```
+
+5. **Run the executable:**
+
+   ```bash
+   ./signal
+   ```
+
+---
+
+## Usage
+
+The sample code in `signal.cpp` demonstrates how to use the library:
+
+1. **Initialization:**  
+   Both Alice and Bob generate all necessary keys (identity, signed prekeys, one-time prekeys, and ephemeral keys).
+
+2. **X3DH Key Agreement:**
+
+   - Alice computes her session key using her identity and ephemeral keys along with Bob’s public key material.
+   - Bob computes his session key using his responder function.
+   - The session keys are verified to ensure that both parties have derived the same key.
+
+3. **Double Ratchet Initialization:**  
+   The session key seeds the double ratchet state. Each party initializes its sending and receiving chain keys using its own DH key pair and the remote party’s public key.
+
+4. **Simulated Secure Conversation:**  
+   The program simulates a conversation by encrypting and decrypting messages between Alice and Bob using the ratchet state. Message encryption involves generating a ciphertext and nonce, while decryption recovers the original plaintext.
+
+For a detailed look at the code and to use these features in your own projects, refer to the source files (`signal.h`, `signal.cpp`, etc.).
+
+---
+
+Happy coding and secure messaging!
+
+```
+
+---
+
 ```
