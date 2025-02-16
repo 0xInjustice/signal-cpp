@@ -1,12 +1,7 @@
-Below is an updated version of your README that incorporates additional context about the project, clear installation instructions for multiple platforms, build steps, and usage details. You can copy and paste this updated README into your repository.
-
 ---
-
-````markdown
 # signal-cpp
 
 signal-cpp is an experimental C++ library that implements core components of the Signal Protocol using libsodium. It provides key generation routines, the X3DH key agreement protocol, and the Double Ratchet algorithm to enable secure, end-to-end encrypted messaging with forward secrecy and post-compromise security.
-
 ---
 
 ## Features
@@ -34,6 +29,7 @@ The project depends on [libsodium](https://libsodium.gitbook.io/doc/). Make sure
    ```bash
    sudo apt update
    ```
+
 ````
 
 2. **Install the libsodium development package:**
@@ -134,7 +130,7 @@ To compile and run the provided code, follow these steps:
 
 The sample code in `signal.cpp` demonstrates how to use the library:
 
-1. **Initialization:**  
+1. **Initialization:**
    Both Alice and Bob generate all necessary keys (identity, signed prekeys, one-time prekeys, and ephemeral keys).
 
 2. **X3DH Key Agreement:**
@@ -143,10 +139,10 @@ The sample code in `signal.cpp` demonstrates how to use the library:
    - Bob computes his session key using his responder function.
    - The session keys are verified to ensure that both parties have derived the same key.
 
-3. **Double Ratchet Initialization:**  
+3. **Double Ratchet Initialization:**
    The session key seeds the double ratchet state. Each party initializes its sending and receiving chain keys using its own DH key pair and the remote party’s public key.
 
-4. **Simulated Secure Conversation:**  
+4. **Simulated Secure Conversation:**
    The program simulates a conversation by encrypting and decrypting messages between Alice and Bob using the ratchet state. Message encryption involves generating a ciphertext and nonce, while decryption recovers the original plaintext.
 
 For a detailed look at the code and to use these features in your own projects, refer to the source files (`signal.h`, `signal.cpp`, etc.).
@@ -160,3 +156,4 @@ Happy coding and secure messaging!
 ---
 
 ```
+````
