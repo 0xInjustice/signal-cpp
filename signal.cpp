@@ -131,8 +131,6 @@ int main() {
                            decryptedFromAliceLen)
             << std::endl;
 
-  delete[] aliceCiphertext;
-  delete[] decryptedFromAlice;
   // ---- Bob sends a reply to Alice ----
   std::string bobMsg;
   std::cout << "bob:";
@@ -165,6 +163,8 @@ int main() {
 
   delete[] bobCiphertext;
   delete[] decryptedFromBob;
+  delete[] aliceCiphertext;
+  delete[] decryptedFromAlice;
 
   std::cout << "\nConversation simulation complete." << std::endl;
   return 0;
