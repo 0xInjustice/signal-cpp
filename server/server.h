@@ -9,18 +9,27 @@
 #include <unistd.h> // For read, write, close system calls
 
 class Server {
-private:
-  int sockfd;                 // Server socket file descriptor
-  sockaddr_in sockaddr;       // Server address structure
-  volatile sig_atomic_t stop; // Flag to control server shutdown
-
 public:
-  Server();                  // Constructor to initialize the server
-  ~Server();                 // Destructor to clean up resources
-  int startServer(int port); // Set up and start the server
-  void acceptClients();      // Main loop to handle clients
-  static void handleClient(int clientSock); // Static method for client threads
-  void shutdownServer();                    // Method to stop the server
+  Server();
+  ~Server();
+
+  int startServer(int port);
+  void acceptClients();
+  void stopServer();
+
+  // New function that saves the received data into a variable
+  void database(const std::string &data);
+
+  // New function that sends the stored data back to the client
+  void request(int clientSock);
+
+private:
+  void handleClient(int clientSock);
+
+  int sockfd;
+  struct sockaddr_in sockaddr;
+  volatile sig_atomic_t stop; // Flag to control server shutdown
 };
+
 
 #endif // SERVER_H
