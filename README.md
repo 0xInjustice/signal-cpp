@@ -1,10 +1,8 @@
----
-# signal-cpp
+### signal-cpp
 
-signal-cpp is an experimental C++ library that implements core components of the Signal Protocol using libsodium. It provides key generation routines, the X3DH key agreement protocol, and the Double Ratchet algorithm to enable secure, end-to-end encrypted messaging with forward secrecy and post-compromise security.
----
+#### signal-cpp is an experimental C++ library that implements core components of the Signal Protocol using libsodium. It provides key generation routines, the X3DH key agreement protocol, and the Double Ratchet algorithm to enable secure, end-to-end encrypted messaging with forward secrecy and post-compromise security.
 
-## Features
+##### Features
 
 - **X3DH Key Agreement:** Establish a shared session key via multiple Diffie–Hellman exchanges.
 - **Double Ratchet Algorithm:** Continuously update message keys to ensure forward secrecy.
@@ -12,25 +10,23 @@ signal-cpp is an experimental C++ library that implements core components of the
 
 ---
 
-## Prerequisites
+### Prerequisites
 
-### Libsodium
+#### Libsodium
 
 The project depends on [libsodium](https://libsodium.gitbook.io/doc/). Make sure you have it installed on your system.
 
 ---
 
-## Installation
+#### Installation
 
-### On Linux (Debian/Ubuntu)
+##### On Linux (Debian/Ubuntu)
 
 1. **Update your package index:**
 
    ```bash
    sudo apt update
    ```
-
-````
 
 2. **Install the libsodium development package:**
 
@@ -156,4 +152,7 @@ Happy coding and secure messaging!
 ---
 
 ```
-````
+
+```
+
+```
